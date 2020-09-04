@@ -3,8 +3,9 @@ import styles from './styles.module.scss'
 import { FilmsList } from 'Src/films/filmsList';
 import { connect } from 'react-redux';
 import { filmsActions } from 'Src/films/reducer';
+import { selectFilms, selectActiveFilmId } from 'Src/films/selectors';
 
-function Films ({ getFilms, cancelGetFilms }) {
+function Films ({ getFilms, cancelGetFilms, films, activeId, selectFilm }) {
   useEffect(() => {
     getFilms();
 
@@ -14,7 +15,10 @@ function Films ({ getFilms, cancelGetFilms }) {
   return (
     <div className="row">
       <div className={ `col-4 col-sm-4 col-lg-2 ${ styles.navLeft }` }>
-        <FilmsList extendClass={ styles.navLeft__items } />
+        <FilmsList extendClass={ styles.navLeft__items }
+                   films={ films }
+                   { ...{ activeId, selectFilm }}
+        />
         <div className={ styles.navLeft__button }>
           <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>Select episode</button>
         </div>
@@ -34,10 +38,16 @@ function Films ({ getFilms, cancelGetFilms }) {
   )
 }
 
-const mapStateToProp = () => ({});
+const mapStateToProp = state => {
+  return ({
+    films: selectFilms(state),
+    activeId: selectActiveFilmId(state)
+  })
+};
 const mapDispatchToProps = dispatch => ({
   getFilms: () => dispatch(filmsActions.list.get()),
-  cancelGetFilms: () => dispatch(filmsActions.list.cancel())
+  cancelGetFilms: () => dispatch(filmsActions.list.cancel()),
+  selectFilm: filmId => dispatch(filmsActions.select(filmId))
 })
 
 Films = connect(mapStateToProp, mapDispatchToProps)(Films)

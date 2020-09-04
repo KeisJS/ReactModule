@@ -1,8 +1,15 @@
-import { takeLatest, race, take } from 'redux-saga/effects';
+import { takeLatest, race, take, call, put } from 'redux-saga/effects';
 import { filmsActions } from 'Src/films/reducer';
+import { getFilms } from 'Src/films/api';
 
 function* updateFilms() {
-  console.log('in update films saga');
+  try {
+    const { data: serverDataFilms } = yield call(getFilms);
+
+    yield put(filmsActions.list.updateByServer(serverDataFilms));
+  } catch(e) {
+    console.log({ e })
+  }
 }
 
 export function* filmsWatcher() {

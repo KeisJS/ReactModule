@@ -1,13 +1,14 @@
 import { createActions, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
+import { connectServerFilmsData } from 'Src/films/api';
 
 const filmsActions = createActions({
   list: {
     get: undefined,
-    updateByServer: undefined,
+    updateByServer: connectServerFilmsData,
     cancel: undefined
   },
-  selectFilm: undefined
+  select: undefined
 }, { prefix: 'films' });
 
 const films = handleActions({
@@ -15,7 +16,8 @@ const films = handleActions({
 }, []);
 
 const active = handleActions({
-  [filmsActions.selectFilm]: (state, { payload }) => payload
+  [filmsActions.select]: (state, { payload }) => payload,
+  [filmsActions.list.updateByServer]: (state, { payload }) => payload[0].id
 }, 0);
 
 const filmsList = combineReducers({

@@ -88,7 +88,13 @@ module.exports = {
     compress: true,
     hot: false,
     inline: false,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'https://swapi.dev',
+        secure: false
+      }
+    }
   },
   devtool: mode === 'production' ? 'none' : 'eval-source-map',
   resolve: {
