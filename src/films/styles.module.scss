@@ -1,0 +1,52 @@
+.filmSelectButton {
+  width: 9rem;
+  font-weight: 900;
+}
+
+.filmTitle {
+  font-weight: 900;
+}
+
+.filmDescription {
+  margin-top: 1.5rem;
+}
+
+.swLogo {
+  background: url('./assert/sw-logo.jpg') no-repeat center black;
+  background-size: contain;
+  height: 12rem;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.filmContent {
+  padding: 1.5rem;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 1px 15px lightgray;
+}
+
+.navItem {
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.navItem__active {
+  text-decoration: none;
+}
+
+.navLeft {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.navLeft__items {
+  flex-grow: 1;
+}
+
+.navLeft__button {
+  text-align: center;
+}
