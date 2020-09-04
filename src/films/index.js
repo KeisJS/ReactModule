@@ -1,14 +1,12 @@
 import React from 'react';
 import styles from './styles.module.scss'
+import { FilmsList } from 'Src/films/filmsList';
 
 function Films () {
   return (
     <div className="row">
       <div className={ `col-4 col-sm-4 col-lg-2 ${ styles.navLeft }` }>
-        <nav className={ styles.navLeft__items }>
-          { Array(7).fill(null).map((v, i) => <div className={ styles.navItem } key={ i }>Some film name ...</div>) }
-          <div className={ `${ styles.navItem } ${ styles.navItem__active }` }>Some film name ...</div>
-        </nav>
+        <FilmsList extendClass={ styles.navLeft__items } />
         <div className={ styles.navLeft__button }>
           <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>Select episode</button>
         </div>

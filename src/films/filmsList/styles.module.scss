@@ -1,0 +1,11 @@
+.item {
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.item_active {
+  text-decoration: none;
+}
