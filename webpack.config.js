@@ -31,7 +31,28 @@ module.exports = {
         loader: 'html-loader',
       },
       {
+        test: /\.module.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
+          'postcss-loader',
+          'resolve-url-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.s[ac]ss$/i,
+        exclude: /\.module.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -69,6 +90,11 @@ module.exports = {
     inline: false,
     historyApiFallback: true
   },
-  devtool: mode === 'production' ? 'none' : 'eval-source-map'
+  devtool: mode === 'production' ? 'none' : 'eval-source-map',
+  resolve: {
+    alias: {
+      Src: path.resolve(__dirname, './src'),
+    }
+  }
 };
 
