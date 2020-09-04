@@ -4,7 +4,8 @@ import { combineReducers } from 'redux';
 const filmsActions = createActions({
   list: {
     get: undefined,
-    updateByServer: undefined
+    updateByServer: undefined,
+    cancel: undefined
   },
   selectFilm: undefined
 }, { prefix: 'films' });

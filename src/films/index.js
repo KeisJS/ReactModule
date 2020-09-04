@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.scss'
 import { FilmsList } from 'Src/films/filmsList';
+import { connect } from 'react-redux';
+import { filmsActions } from 'Src/films/reducer';
 
-function Films () {
+function Films ({ getFilms, cancelGetFilms }) {
+  useEffect(() => {
+    getFilms();
+
+    return () => cancelGetFilms()
+  }, [])
+
   return (
     <div className="row">
       <div className={ `col-4 col-sm-4 col-lg-2 ${ styles.navLeft }` }>
@@ -25,5 +33,13 @@ function Films () {
     </div>
   )
 }
+
+const mapStateToProp = () => ({});
+const mapDispatchToProps = dispatch => ({
+  getFilms: () => dispatch(filmsActions.list.get()),
+  cancelGetFilms: () => dispatch(filmsActions.list.cancel())
+})
+
+Films = connect(mapStateToProp, mapDispatchToProps)(Films)
 
 export { Films, Films as default }
