@@ -61,7 +61,11 @@ const mapStateToProp = state => {
 const mapDispatchToProps = dispatch => ({
   getFilms: () => dispatch(filmsActions.list.get()),
   cancelGetFilms: () => dispatch(filmsActions.list.cancel()),
-  selectFilm: filmId => dispatch(filmsActions.select(filmId))
+  selectFilm: (filmId, activeFilmId) => {
+    if (filmId !== activeFilmId) {
+      dispatch(filmsActions.select(filmId))
+    }
+  }
 })
 
 Films = connect(mapStateToProp, mapDispatchToProps)(Films)

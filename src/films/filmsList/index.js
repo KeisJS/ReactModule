@@ -9,7 +9,7 @@ function FilmsList({ extendClass = '', films = [], activeId, selectFilm }) {
         const activeClass = id === activeId ? styles.item_active : ''
 
         return (
-          <div className={ `${ styles.item } ${ activeClass }` } key={ id } onClick={ () => selectFilm(id) }>
+          <div className={ `${ styles.item } ${ activeClass }` } key={ id } onClick={ () => selectFilm(id, activeId) }>
             { title }
           </div>
         )

@@ -1,7 +1,8 @@
 export const STATUS = {
   pending: 'pending',
   success: 'success',
-  fail: 'fail'
+  fail: 'fail',
+  empty: null
 }
 
 export const status = {

@@ -4,6 +4,7 @@ function Review({ match }) {
   const userName = createRef();
   const email = createRef();
   const review = createRef();
+  const sendButton = createRef();
   const fields = [userName, email, review];
 
   function sendReview() {
@@ -11,6 +12,7 @@ function Review({ match }) {
       return;
     }
 
+    sendButton.current.disabled = true;
     console.log('send')
   }
 
@@ -38,7 +40,7 @@ function Review({ match }) {
               <textarea className="form-control" id="review" rows="6" required ref={ review }></textarea>
             </div>
           </form>
-          <button type="button" className="btn btn-primary" onClick={ sendReview }>Send</button>
+          <button type="button" className="btn btn-primary" onClick={ sendReview } ref={ sendButton }>Send</button>
         </div>
       </div>
     </div>

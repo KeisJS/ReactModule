@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
 import { Preloader } from 'Src/preloader';
 import { FilmsLazy } from 'Src/films/lazy';
-import { Review } from 'Src/review';
+import { ReviewLazy } from 'Src/review/lazy';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Router>
             <Suspense fallback={ <Preloader text="Загрузка приложения"></Preloader> }>
               <Switch>
-                <Route path="/review/:filmId" component={ Review }></Route>
+                <Route path="/review/:filmId" component={ ReviewLazy }></Route>
                 <Route path="/" component={ FilmsLazy }></Route>
               </Switch>
             </Suspense>
