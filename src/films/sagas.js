@@ -1,4 +1,4 @@
-import { takeLatest, race, take, call, put } from 'redux-saga/effects';
+import { takeLatest, race, takeEvery, call, put } from 'redux-saga/effects';
 import { filmsActions } from 'Src/films/reducer';
 import { getFilms } from 'Src/films/api';
 
@@ -15,6 +15,6 @@ function* updateFilms() {
 export function* filmsWatcher() {
   yield race([
     takeLatest(filmsActions.list.get, updateFilms),
-    take(filmsActions.list.cancel)
+    takeEvery(filmsActions.list.cancel, () => {})
   ])
 }

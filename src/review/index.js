@@ -1,11 +1,15 @@
-import React, { createRef } from 'react';
+import React, { createRef, useEffect } from 'react';
+import { reviewActions } from 'Src/review/actions';
+import { connect } from 'react-redux';
+import { selectFilm } from 'Src/review/selectors';
 
-function Review({ match }) {
+function Review({ match, getFilm, cancelGetFilm, film }) {
   const userName = createRef();
   const email = createRef();
   const review = createRef();
   const sendButton = createRef();
   const fields = [userName, email, review];
+  const filmId = match.params.filmId;
 
   function sendReview() {
     if (fields.some(field => !field.current.checkValidity())) {
@@ -16,11 +20,17 @@ function Review({ match }) {
     console.log('send')
   }
 
+  useEffect(() => {
+    getFilm(filmId);
+
+    return () => cancelGetFilm();
+  }, [])
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h1>Film id: { match.params.filmId }</h1>
+          <h1>Review: { film.title }</h1>
           <form className="was-validated">
             <div className="form-group">
               <label htmlFor="userName">User name:</label>
@@ -46,5 +56,20 @@ function Review({ match }) {
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    film: selectFilm(state)
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getFilm: filmId => dispatch(reviewActions.film.get(filmId)),
+    cancelGetFilm: () => dispatch(reviewActions.film.cancel())
+  }
+}
+
+Review = connect(mapStateToProps, mapDispatchToProps)(Review);
 
 export { Review }

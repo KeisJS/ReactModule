@@ -29,7 +29,7 @@ function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, curre
               />
               <div className={ styles.navLeft__button }>
                 <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>
-                  <Link to={ `/review/${ activeFilm.id }` }>Select episode</Link>
+                  <Link to={ `/review/${ activeFilm.urlId }` }>Select episode</Link>
                 </button>
               </div>
             </div>

@@ -1,11 +1,11 @@
 import { createActions } from 'redux-actions';
-import { STATUS } from 'Src/status';
+import { mapSeverDataFilm } from 'Src/films/api';
 
 export const reviewActions = createActions({
   film: {
     get: undefined,
     cancel: undefined,
-    success: undefined
+    updateByServer: mapSeverDataFilm
   },
   review: {
     save: undefined,
