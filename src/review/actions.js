@@ -9,8 +9,6 @@ export const reviewActions = createActions({
   },
   review: {
     save: undefined,
-    status: {
-      success: undefined
-    }
+    updateByServer: undefined
   }
-});
+}, { prefix: 'review' });

@@ -22,7 +22,8 @@ const activeId = handleActions({
 }, 0);
 
 const status = handleActions({
-  [filmsActions.list.updateByServer]: () => STATUS.success
+  [filmsActions.list.updateByServer]: () => STATUS.success,
+  [filmsActions.list.get]: () => STATUS.pending
 }, STATUS.pending)
 
 const films = combineReducers({

@@ -13,7 +13,7 @@ const data = handleActions({
 
 const status = handleActions({
   [reviewActions.review.save]: () => STATUS.pending,
-  [reviewActions.review.status.success]: () => STATUS.success
+  [reviewActions.review.updateByServer]: () => STATUS.success
 }, STATUS.empty);
 
 export const reviewReducer = combineReducers({
