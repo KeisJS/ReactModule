@@ -16,35 +16,37 @@ function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, curre
   }, [])
 
   return (
-    <div className="row">
-      { status.isPending(currentStatus) && <Preloader text='Films loading'></Preloader> }
-      { status.isSuccess(currentStatus) && (
-        <>
-          <div className={ `col-4 col-sm-4 col-lg-2 ${ styles.navLeft }` }>
-            <FilmsList extendClass={ styles.navLeft__items }
-                       films={ films }
-                       activeId={ activeFilm.id }
-                       selectFilm={ selectFilm }
-            />
-            <div className={ styles.navLeft__button }>
-              <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>
-                <Link to='/review'>Select episode</Link>
-              </button>
-            </div>
-          </div>
-          <div className="col-8 col-sm-8 col-lg-10">
-            <div className={ styles.swLogo }></div>
-            <article className={ styles.filmContent }>
-              <h1 className={ styles.filmTitle }>{ activeFilm.title }</h1>
-              <div className={ styles.filmDescription }>
-                <p>
-                  { activeFilm.intro }
-                </p>
+    <div className="container">
+      <div className="row">
+        { status.isPending(currentStatus) && <Preloader text='Films loading'></Preloader> }
+        { status.isSuccess(currentStatus) && (
+          <>
+            <div className={ `col-4 col-sm-4 col-lg-2 ${ styles.navLeft }` }>
+              <FilmsList extendClass={ styles.navLeft__items }
+                         films={ films }
+                         activeId={ activeFilm.id }
+                         selectFilm={ selectFilm }
+              />
+              <div className={ styles.navLeft__button }>
+                <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>
+                  <Link to={ `/review/${ activeFilm.id }` }>Select episode</Link>
+                </button>
               </div>
-            </article>
-          </div>
-        </>
-      )}
+            </div>
+            <div className="col-8 col-sm-8 col-lg-10">
+              <div className={ styles.swLogo }></div>
+              <article className={ styles.filmContent }>
+                <h1 className={ styles.filmTitle }>{ activeFilm.title }</h1>
+                <div className={ styles.filmDescription }>
+                  <p>
+                    { activeFilm.intro }
+                  </p>
+                </div>
+              </article>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   )
 }
