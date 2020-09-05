@@ -1,6 +1,15 @@
 .filmSelectButton {
   width: 9rem;
   font-weight: 900;
+
+  > a {
+    color: white;
+    text-decoration: none;
+
+    &:visited {
+      color: white;
+    }
+  }
 }
 
 .filmTitle {

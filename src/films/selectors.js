@@ -1,7 +1,11 @@
-export function selectFilms(state) {
-  return state.filmsList.films;
+export function selectFilms({ filmsList }) {
+  return filmsList.films;
 }
 
-export function selectActiveFilmId(state) {
-  return state.filmsList.active;
+export function selectActiveFilm({ filmsList }) {
+  return filmsList.films.find(film => film.id === filmsList.activeId)
+}
+
+export function selectStatus({ filmsList }) {
+  return filmsList.status;
 }

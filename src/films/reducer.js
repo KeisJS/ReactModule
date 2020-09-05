@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 import { connectServerFilmsData } from 'Src/films/api';
+import { STATUS } from 'Src/status';
 
 const filmsActions = createActions({
   list: {
@@ -15,14 +16,19 @@ const films = handleActions({
   [filmsActions.list.updateByServer]: (state, { payload }) => payload
 }, []);
 
-const active = handleActions({
+const activeId = handleActions({
   [filmsActions.select]: (state, { payload }) => payload,
   [filmsActions.list.updateByServer]: (state, { payload }) => payload[0].id
 }, 0);
 
+const status = handleActions({
+  [filmsActions.list.updateByServer]: () => STATUS.success
+}, STATUS.pending)
+
 const filmsList = combineReducers({
   films,
-  active
+  activeId,
+  status
 });
 
 export { filmsActions, filmsList }
