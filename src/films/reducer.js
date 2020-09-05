@@ -12,7 +12,7 @@ const filmsActions = createActions({
   select: undefined
 }, { prefix: 'films' });
 
-const films = handleActions({
+const data = handleActions({
   [filmsActions.list.updateByServer]: (state, { payload }) => payload
 }, []);
 
@@ -25,11 +25,11 @@ const status = handleActions({
   [filmsActions.list.updateByServer]: () => STATUS.success
 }, STATUS.pending)
 
-const filmsList = combineReducers({
-  films,
+const films = combineReducers({
+  data,
   activeId,
   status
 });
 
-export { filmsActions, filmsList }
+export { filmsActions, films }
 

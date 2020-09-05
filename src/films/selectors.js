@@ -1,11 +1,11 @@
-export function selectFilms({ filmsList }) {
-  return filmsList.films;
+export function selectFilms({ films }) {
+  return films.data;
 }
 
-export function selectActiveFilm({ filmsList }) {
-  return filmsList.films.find(film => film.id === filmsList.activeId)
+export function selectActiveFilm({ films }) {
+  return films.data.find(film => film.id === films.activeId)
 }
 
-export function selectStatus({ filmsList }) {
-  return filmsList.status;
+export function selectStatus({ films }) {
+  return films.status;
 }
