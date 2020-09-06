@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { selectFilm, selectFilmStatus } from 'Src/review/selectors';
 import { status } from 'Src/status';
 import { Preloader } from 'Src/preloader';
+import { store } from 'Src/app/store';
 
 function Review({ match, getFilm, cancelGetFilm, film, currentFilmStatus }) {
   const userName = createRef();
@@ -25,7 +26,11 @@ function Review({ match, getFilm, cancelGetFilm, film, currentFilmStatus }) {
   useEffect(() => {
     getFilm(filmId);
 
-    return () => cancelGetFilm();
+    return () => {
+      cancelGetFilm();
+      store.detachReducers(['review']);
+      store.cancelSagas(['review']);
+    }
   }, [])
 
   return (

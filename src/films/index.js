@@ -7,12 +7,17 @@ import { selectFilms, selectActiveFilm, selectStatus } from 'Src/films/selectors
 import { status } from 'Src/status';
 import { Preloader } from 'Src/preloader';
 import { Link } from 'react-router-dom';
+import { store } from 'Src/app/store';
 
 function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, currentStatus }) {
   useEffect(() => {
     getFilms();
 
-    return () => cancelGetFilms()
+    return () => {
+      cancelGetFilms();
+      store.detachReducers(['films']);
+      store.cancelSagas(['films']);
+    }
   }, [])
 
   return (
