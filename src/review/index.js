@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { selectFilm, selectFilmStatus, selectReviewStatus, selectReview } from 'Src/review/selectors';
 import { reviewActions } from 'Src/review/actions';
 import { status } from 'Src/status';
@@ -8,8 +9,8 @@ import { store } from 'Src/app/store';
 import { Preloader } from 'Src/preloader';
 import { ReviewForm } from 'Src/review/reviewForm';
 
-function Review({ match, getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, currentReviewStatus, review }) {
-  const filmId = match.params.filmId;
+function Review({ getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, currentReviewStatus, review }) {
+  const { filmId } = useParams();
 
   useEffect(() => {
     getFilm(filmId);

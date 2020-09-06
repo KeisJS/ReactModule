@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss'
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { filmsActions } from 'Src/films/reducer';
 import { selectFilms, selectActiveFilm, selectStatus } from 'Src/films/selectors';
 import { status } from 'Src/status';
@@ -18,7 +19,9 @@ function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, curre
       store.detachReducers(['films']);
       store.cancelSagas(['films']);
     }
-  }, [])
+  }, []);
+
+  const history = useHistory();
 
   return (
     <div className="container">
@@ -33,8 +36,9 @@ function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, curre
                          selectFilm={ selectFilm }
               />
               <div className={ styles.navLeft__button }>
-                <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }>
-                  <Link to={ `/review/${ activeFilm.urlId }` }>Select episode</Link>
+                <button type="button" className={ `btn btn-primary ${ styles.filmSelectButton }` }
+                        onClick={() => { history.push(`/review/${ activeFilm.urlId }`) }}>
+                  Select episode
                 </button>
               </div>
             </div>
