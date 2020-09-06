@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import { reducer as simple } from '../myComponent/reducer';
+import { handleActions } from 'redux-actions';
 
-const reducers = combineReducers({
-  simple
-});
+// const reducers = combineReducers({
+// });
+
+const reducers = handleActions({}, {});
 
 export { reducers }

@@ -31,9 +31,12 @@ function Review({ getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, c
           <div className="col-12">
             <h1>Review: { film.title }</h1>
             { status.isSuccess(currentReviewStatus) ? (
-              <div className={ styles.reviewData }>
-                { review }
-              </div>
+              <>
+                <h2>Thank you!</h2>
+                <div className={ styles.reviewData }>
+                  { review }
+                </div>
+              </>
             ) : (
               <ReviewForm saveReview={ saveReview }></ReviewForm>
             )}
