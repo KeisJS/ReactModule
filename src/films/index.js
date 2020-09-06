@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss'
-import { FilmsList } from 'Src/films/filmsList';
 import { connect } from 'react-redux';
 import { filmsActions } from 'Src/films/reducer';
 import { selectFilms, selectActiveFilm, selectStatus } from 'Src/films/selectors';
 import { status } from 'Src/status';
-import { Preloader } from 'Src/preloader';
-import { Link } from 'react-router-dom';
 import { store } from 'Src/app/store';
+import { Link } from 'react-router-dom';
+import { FilmsList } from 'Src/films/filmsList';
+import { Preloader } from 'Src/preloader';
 
 function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, currentStatus }) {
   useEffect(() => {

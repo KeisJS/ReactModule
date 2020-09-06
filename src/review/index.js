@@ -1,28 +1,15 @@
-import React, { createRef, useEffect } from 'react';
-import { reviewActions } from 'Src/review/actions';
+import React, { useEffect } from 'react';
+import styles from './styles.module.scss';
 import { connect } from 'react-redux';
 import { selectFilm, selectFilmStatus, selectReviewStatus, selectReview } from 'Src/review/selectors';
+import { reviewActions } from 'Src/review/actions';
 import { status } from 'Src/status';
-import { Preloader } from 'Src/preloader';
 import { store } from 'Src/app/store';
-import styles from './styles.module.scss'
+import { Preloader } from 'Src/preloader';
+import { ReviewForm } from 'Src/review/reviewForm';
 
 function Review({ match, getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, currentReviewStatus, review }) {
-  const userNameRef = createRef();
-  const emailRef = createRef();
-  const reviewRef = createRef();
-  const sendButtonRef = createRef();
-  const fields = [userNameRef, emailRef, reviewRef];
   const filmId = match.params.filmId;
-
-  function sendReview() {
-    if (fields.some(field => !field.current.checkValidity())) {
-      return;
-    }
-
-    sendButtonRef.current.disabled = true;
-    saveReview(reviewRef.current.value);
-  }
 
   useEffect(() => {
     getFilm(filmId);
@@ -47,28 +34,7 @@ function Review({ match, getFilm, cancelGetFilm, film, currentFilmStatus, saveRe
                 { review }
               </div>
             ) : (
-              <>
-                <form className="was-validated">
-                  <div className="form-group">
-                    <label htmlFor="userName">User name:</label>
-                    <input type="text" className="form-control" id="userName" placeholder="Enter name..." required
-                           ref={ userNameRef }/>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input type="text" className="form-control" id="email" placeholder="Enter email..."
-                           required pattern=".+@.+\..+" ref={ emailRef }
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="review">Review:</label>
-                    <textarea className="form-control" id="review" rows="6" required ref={ reviewRef }></textarea>
-                  </div>
-                </form>
-                <button type="button" className="btn btn-primary" onClick={ sendReview } ref={ sendButtonRef }>Send</button>
-              </>
+              <ReviewForm saveReview={ saveReview }></ReviewForm>
             )}
           </div>
         )}
