@@ -5,11 +5,9 @@ import { combineReducers } from 'redux';
 
 const data = handleActions({
   [reviewActions.review.save]: (state, { payload }) => {
-    return payload.data;
+    return payload;
   }
-}, {
-  title: ''
-});
+}, '');
 
 const status = handleActions({
   [reviewActions.review.save]: () => STATUS.pending,
