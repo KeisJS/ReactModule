@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss'
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { filmsActions } from 'Src/films/reducer';
 import { selectFilms, selectActiveFilm, selectStatus } from 'Src/films/selectors';
@@ -18,7 +18,7 @@ function Films () {
       activeFilm: selectActiveFilm(state),
       currentStatus: selectStatus(state)
     })
-  });
+  },shallowEqual);
 
   const dispatch = useDispatch();
 

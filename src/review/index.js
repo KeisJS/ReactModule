@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectFilm, selectFilmStatus, selectReviewStatus, selectReview } from 'Src/review/selectors';
 import { reviewActions } from 'Src/review/actions';
@@ -19,7 +19,7 @@ function Review() {
       currentReviewStatus: selectReviewStatus(state),
       review: selectReview(state)
     }
-  });
+  }, shallowEqual);
 
   const dispatch = useDispatch();
 
