@@ -9,7 +9,7 @@ import { store } from 'Src/app/store';
 import { FilmsList } from 'Src/films/filmsList';
 import { Preloader } from 'Src/preloader';
 
-function Films ({  }) {
+function Films () {
   const history = useHistory();
 
   const { films, activeFilm, currentStatus } = useSelector(state => {

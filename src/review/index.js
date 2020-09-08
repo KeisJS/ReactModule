@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectFilm, selectFilmStatus, selectReviewStatus, selectReview } from 'Src/review/selectors';
 import { reviewActions } from 'Src/review/actions';
@@ -9,18 +9,31 @@ import { store } from 'Src/app/store';
 import { Preloader } from 'Src/preloader';
 import { ReviewForm } from 'Src/review/reviewForm';
 
-function Review({ getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, currentReviewStatus, review }) {
+function Review() {
   const { filmId } = useParams();
 
+  const { film, currentFilmStatus, currentReviewStatus, review } = useSelector(state => {
+    return {
+      film: selectFilm(state),
+      currentFilmStatus: selectFilmStatus(state),
+      currentReviewStatus: selectReviewStatus(state),
+      review: selectReview(state)
+    }
+  });
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getFilm(filmId);
+    dispatch(reviewActions.film.get(filmId));
 
     return () => {
-      cancelGetFilm();
+      dispatch(reviewActions.film.cancel());
       store.detachReducers(['review']);
       store.cancelSagas(['review']);
     }
-  }, [])
+  }, []);
+
+  const saveReview = review => dispatch(reviewActions.review.save(review));
 
   return (
     <div className="container">
@@ -46,24 +59,5 @@ function Review({ getFilm, cancelGetFilm, film, currentFilmStatus, saveReview, c
     </div>
   )
 }
-
-const mapStateToProps = state => {
-  return {
-    film: selectFilm(state),
-    currentFilmStatus: selectFilmStatus(state),
-    currentReviewStatus: selectReviewStatus(state),
-    review: selectReview(state)
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getFilm: filmId => dispatch(reviewActions.film.get(filmId)),
-    cancelGetFilm: () => dispatch(reviewActions.film.cancel()),
-    saveReview: review => dispatch(reviewActions.review.save(review))
-  }
-}
-
-Review = connect(mapStateToProps, mapDispatchToProps)(Review);
 
 export { Review }
