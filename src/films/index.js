@@ -1,27 +1,42 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss'
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { filmsActions } from 'Src/films/reducer';
 import { selectFilms, selectActiveFilm, selectStatus } from 'Src/films/selectors';
 import { status } from 'Src/status';
 import { store } from 'Src/app/store';
-import { Link } from 'react-router-dom';
 import { FilmsList } from 'Src/films/filmsList';
 import { Preloader } from 'Src/preloader';
 
-function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, currentStatus }) {
+function Films ({  }) {
+  const history = useHistory();
+
+  const { films, activeFilm, currentStatus } = useSelector(state => {
+    return ({
+      films: selectFilms(state),
+      activeFilm: selectActiveFilm(state),
+      currentStatus: selectStatus(state)
+    })
+  });
+
+  const dispatch = useDispatch();
+
+  const selectFilm = (filmId, activeFilmId) => {
+    if (filmId !== activeFilmId) {
+      dispatch(filmsActions.select(filmId))
+    }
+  }
+
   useEffect(() => {
-    getFilms();
+    dispatch(filmsActions.list.get());
 
     return () => {
-      cancelGetFilms();
+      dispatch(filmsActions.list.cancel());
       store.detachReducers(['films']);
       store.cancelSagas(['films']);
     }
   }, []);
-
-  const history = useHistory();
 
   return (
     <div className="container">
@@ -59,24 +74,5 @@ function Films ({ getFilms, cancelGetFilms, films, activeFilm, selectFilm, curre
     </div>
   )
 }
-
-const mapStateToProp = state => {
-  return ({
-    films: selectFilms(state),
-    activeFilm: selectActiveFilm(state),
-    currentStatus: selectStatus(state)
-  })
-};
-const mapDispatchToProps = dispatch => ({
-  getFilms: () => dispatch(filmsActions.list.get()),
-  cancelGetFilms: () => dispatch(filmsActions.list.cancel()),
-  selectFilm: (filmId, activeFilmId) => {
-    if (filmId !== activeFilmId) {
-      dispatch(filmsActions.select(filmId))
-    }
-  }
-})
-
-Films = connect(mapStateToProp, mapDispatchToProps)(Films)
 
 export { Films, Films as default }
